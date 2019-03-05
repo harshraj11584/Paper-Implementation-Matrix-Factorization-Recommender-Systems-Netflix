@@ -276,6 +276,21 @@ Incorporate \textbf{Confidence} in this model -
 subject to : $c_{ui} \geqslant 0 $ $\forall (u,i) $
 \newline. \hspace{1.53cm} $ \lambda \geqslant 0 $
 
+
+
+\end{frame}
+
+\begin{frame}{Proof of Convexity}
+\textbf{Claim:} For a fixed $p_u$, \newline $\sum\limits_{(u,i)}c_{ui}(r_{ui}- \mu -b_u -b_i - q_{i}^{T} p_{u})^{2}+\lambda(\Vert q_{i}\Vert^{2}+\Vert p_{u}\Vert^{2} +\Vert b_{u}\Vert^{2} +\Vert b_{i}\Vert^{2} )$ \newline
+is convex in q_{i}. 
+\newline \newline \textbf{Proof:}\newline
+i) $(r_{ui}- \mu -b_u -b_i - q_{i}^{T} p_{u})$ is affine in q_{i}
+\newline
+ii) $(r_{ui}- \mu -b_u -b_i - q_{i}^{T} p_{u})^{2}$ is convex in $q_{i}$ as it is square of affine function
+\newline
+iii) $\lambda(\Vert q_{i}\Vert^{2} )$ is convex in $q_{i}$ because it is a norm.
+\newline
+iv) As sum of convex functions is convex, adding ii) and ii), we get, \newline $\sum\limits_{(u,i)}c_{ui}(r_{ui}- \mu -b_u -b_i - q_{i}^{T} p_{u})^{2}+\lambda(\Vert q_{i}\Vert^{2}+\Vert p_{u}\Vert^{2} +\Vert b_{u}\Vert^{2} +\Vert b_{i}\Vert^{2} )$ is convex. \newline(Proved)
 \end{frame}
 
 \begin{frame}{Accuracy Improvement}
