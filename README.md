@@ -7,9 +7,10 @@ Links to original paper published by IEEE Computer Society : [[1]](https://ieeex
 
 Link to Netflix Dataset Used : [[1]](https://www.kaggle.com/netflix-inc/netflix-prize-data)
 
+###Instructions 
 
-_recommender_final.py_ is the final recommender, and requires _mf.py_ to be imported to run. Use directly on any dataset by changing line 19 in _recommender_final.py_.   
+1) _recommender_final.py_ is the final recommender, and requires _mf.py_ to be imported to run. Use directly on any dataset by changing line 19 in _recommender_final.py_.   
 
-_recommender_final_toy_dataset.py_ shows how exactly Matrix Factorization Techniques work by considering a 5x5 toy dataset.   
+2) _recommender_final_toy_dataset.py_ shows how exactly Matrix Factorization Techniques work by considering a 5x5 toy dataset.   
 
-The _*.ipynb_ files include visualizations of RMSE decreasing with iterations when fitting on the training dataset. All _*.ipynb_ files are standalone and does not require importing _mf.py_
+3) The _*.ipynb_ files include visualizations of RMSE decreasing with iterations when fitting on the training dataset. All _*.ipynb_ files are standalone and do not require importing _mf.py_
