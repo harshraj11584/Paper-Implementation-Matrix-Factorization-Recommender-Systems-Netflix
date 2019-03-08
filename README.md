@@ -7,7 +7,7 @@ Links to original paper published by IEEE Computer Society : [[1]](https://ieeex
 
 Link to Netflix Dataset Used : [[1]](https://www.kaggle.com/netflix-inc/netflix-prize-data)
 
-###Instructions 
+### Instructions 
 
 1) _recommender_final.py_ is the final recommender, and requires _mf.py_ to be imported to run. Use directly on any dataset by changing line 19 in _recommender_final.py_.   
 
