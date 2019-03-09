@@ -1,5 +1,5 @@
 # Paper-Implementation-Matrix-Factorization-Recommender-Systems-Netflix
-[![license](https://img.shields.io/github/license/DAVFoundation/captain-n3m0.svg?style=flat-square)](https://github.com/harshraj11584/Paper-Implementation-Matrix-Factorization-Recommender-Systems-Netflix/blob/master/LICENSE)
+[![license](https://img.shields.io/github/license/DAVFoundation/captain-n3m0.svg?style=flat-square)](https://github.com/harshraj11584/Paper-Implementation-Matrix-Factorization-Recommender-Systems-Netflix/blob/master/LICENSE) [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
 ## IEEE paper **"Matrix Factorization Techniques for Recommender Systems"** 
 ### - Yehuda Koren, Robert Bell, Chris Volinsky   
 ### Python 3.6
