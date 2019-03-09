@@ -8,14 +8,17 @@ Links to original paper published by IEEE Computer Society : [[1]](https://ieeex
 
 Link to Netflix Dataset Used : [[1]](https://www.kaggle.com/netflix-inc/netflix-prize-data)
 
-### Instructions 
+### Files 
 
-1) _Presentation.pdf_ explains the paper. Was written in Latex Beamer, tex code is in _presentation.tex_     
+1) **Presentation.pdf** : Explains the paper. Was written in Latex Beamer, tex code is in _presentation.tex_     
 
-2) _recommender_final.py_ is the final recommender, and requires _mf.py_ to be imported to run. Use directly on any dataset by changing line 19 in _recommender_final.py_.   
+2) **recommender_final.py** : The final recommender. Includes biases and regularization. Requires **mf.py** to be imported to run. Use directly on any dataset by changing line 19 in **recommender_final.py**.   
 
-3) _recommender_final_toy_dataset.py_ shows how exactly Matrix Factorization Techniques work by considering a 5x5 toy dataset.   
+3) **recommender_final_toy_dataset.py** shows how exactly Matrix Factorization Techniques work by considering a 5x5 toy dataset.   
 
-4) The _*.ipynb_ files include visualizations of RMSE decreasing with iterations when fitting on the training dataset. All _*.ipynb_ files are standalone and do not require importing _mf.py_
+4) The **.ipynb_** files include visualizations of RMSE decreasing with iterations when fitting on the training dataset. All **.ipynb** files are standalone and do not require importing **mf.py**    
 
-5) Train and Test Data not given separately. Program randomly separates k% of data as Test data, trains on remaining, then tests on the k% values. Default k=20, can be changed on line 154.
+5) **feasible_data_n.txt** : Files with only the first n datapoints from whole dataset. Used for Testing.
+
+5) **Training** and **Testing Data** :  
+Not given separately. Program randomly separates k% of data as Test data, trains on remaining, then tests on the k% values. Default k=20, can be changed on line 154.
