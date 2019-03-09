@@ -15,15 +15,26 @@ from numpy import matrix
 print("Setup Complete\n")
 
 
+print("Select Number of DataPoints to Train on: \n1: 1024 \t2: 10000 \t3: 25000 \t4: 75000\n\n")
+choice = int(input())
+if (choice==1 or choice==1024):
+	df1 = pd.read_csv('feasible_data_1024.txt', header = None, names = ['Cust_Id', 'Rating', 'Date'], usecols = [0,1,2])
+elif (choice==2 or choice==10000):
+	df1 = pd.read_csv('feasible_data_10000.txt', header = None, names = ['Cust_Id', 'Rating', 'Date'], usecols = [0,1,2])
+elif (choice==3 or choice==25000):
+	df1 = pd.read_csv('feasible_data_25000.txt', header = None, names = ['Cust_Id', 'Rating', 'Date'], usecols = [0,1,2])
+elif (choice==4 or choice==75000):
+	df1 = pd.read_csv('feasible_data_75000.txt', header = None, names = ['Cust_Id', 'Rating', 'Date'], usecols = [0,1,2])
+
 print("\nLoading Data\n")
-df1 = pd.read_csv('netflix-prize-data/combined_data_1.txt', header = None, names = ['Cust_Id', 'Rating', 'Date'], usecols = [0,1,2])
+
 df1['Rating'] = df1['Rating'].astype(float)
 df1['Date'] = df1['Date'].astype(str)
 df1['Date'] = df1['Date'].map( lambda s : (s[:4])+(s[5:7])+(s[8:]))
 df1['Date'] = df1['Date'].astype(float)
 print('Dataset 1 shape: {}'.format(df1.shape))
 print('-Dataset examples-')
-print(df1.iloc[::1000000, :])
+print(df1.iloc[::10000, :])
 #print(df1['Date'].dtype)
 df = df1
 
@@ -31,19 +42,19 @@ df = df1
 
 
 #Seeing the distribution of ratings given by the users
-# print("See Overview of the Data")
-# p = df.groupby('Rating')['Rating'].agg(['count'])
-# # get movie count
-# movie_count = df.isnull().sum()[1]
-# # get customer count
-# cust_count = df['Cust_Id'].nunique() - movie_count
-# # get rating count
-# rating_count = df['Cust_Id'].count() - movie_count
-# ax = p.plot(kind = 'barh', legend = False, figsize = (15,10))
-# plt.title('Total pool: {:,} Movies, {:,} customers, {:,} ratings given'.format(movie_count, cust_count, rating_count), fontsize=20)
-# plt.axis('off')
-# for i in range(1,6):
-#     ax.text(p.iloc[i-1][0]/4, i-1, 'Rated {}: {:.0f}%'.format(i, p.iloc[i-1][0]*100 / p.sum()[0]), color = 'white', weight = 'bold')
+print("See Overview of the Data")
+p = df.groupby('Rating')['Rating'].agg(['count'])
+# get movie count
+movie_count = df.isnull().sum()[1]
+# get customer count
+cust_count = df['Cust_Id'].nunique() - movie_count
+# get rating count
+rating_count = df['Cust_Id'].count() - movie_count
+ax = p.plot(kind = 'barh', legend = False, figsize = (15,10))
+plt.title('Total pool: {:,} Movies, {:,} customers, {:,} ratings given'.format(movie_count, cust_count, rating_count), fontsize=20)
+plt.axis('off')
+for i in range(1,6):
+    ax.text(p.iloc[i-1][0]/4, i-1, 'Rated {}: {:.0f}%'.format(i, p.iloc[i-1][0]*100 / p.sum()[0]), color = 'white', weight = 'bold')
 
 
 
@@ -108,7 +119,7 @@ n_movies = movie_count
 n_customers = cust_count
 print("\nNum of movies =", movie_count)
 print("Num of users =", cust_count)
-
+print()
 
 
 
@@ -135,7 +146,7 @@ print(acq_data.head())
 
 
 
-
+print("\nRandomly Distributing Test and Train Set by removing 20% values...\n")
 #This cell works on Real DataSet
 R = np.array(acq_data)
 R1= np.array(acq_data)
@@ -146,14 +157,14 @@ i = [np.random.choice(range(R.shape[0])) for _ in range(prop)]
 j = [np.random.choice(range(R.shape[1])) for _ in range(prop)]
 #Change values with 0
 R[i,j] = 0
-print("Original:\n",R1.head())
-print("Test Set:\n",R.head())
+print("Original:\n",R1)
+print("Test Set:\n",R)
 R=np.rint(R)
 from sklearn.metrics import mean_squared_error
 mse = mean_squared_error(R, R1)
 print("RMSE=",mse**0.5)
 print("\nTraining ...\n")
-mf = MF(R, K=2, alpha=0.01, beta=0.01, iterations=10)
+mf = MF(R, K=2, alpha=0.01, beta=0.01, iterations=100)
 training_process = mf.train()
 L=np.rint(mf.full_matrix())
 print("\nDone\n")
@@ -168,7 +179,7 @@ print("Minimizing Error on Training Set:\n")
 plt.xlabel("Iterations")
 plt.ylabel("Root Mean Square Error")
 plt.grid(axis="y")
-print("Learnt=\n",mf.full_matrix().head())
+print("Learnt=\n",mf.full_matrix())
 print("\nRating predictions=\n",L)
 print()
 print()
@@ -182,9 +193,12 @@ print()
 # print(mf.b_i)
 print("\nFinding Error on test set...\n")
 msef=0.0
-for i1 in range(len(i)):
-    for i2 in range(len(j)):
-        if R1.item(i[i1],j[i2])!=0:
-            msef = msef + (R1.item((i[i1],j[i2]))-(L).item((i[i1],j[i2])))**2
-msef = (msef/(len(j)*len(i)))
-print("RMSE f=",msef**0.5)
+# for i1 in range(len(i)):
+#     for i2 in range(len(j)):
+#         if R1.item(i[i1],j[i2])!=0:
+#             msef = msef + (R1.item((i[i1],j[i2]))-(L).item((i[i1],j[i2])))**2
+# msef = (msef/(len(j)*len(i)))
+valid_cmp = ~np.isnan(df_matrix)
+msef = np.sum(np.sum(np.multiply(valid_cmp,np.square(R1-L)),axis=None))/(len(j)*len(i)*1.00)
+
+print("RMSE final=",msef**0.5)
