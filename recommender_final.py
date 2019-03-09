@@ -15,8 +15,9 @@ from numpy import matrix
 print("Setup Complete\n")
 
 
-print("Select Number of DataPoints to Train on: \n1: 1024 \t2: 10000 \t3: 25000 \t4: 75000\n\n")
+print("Select Number of DataPoints to Train on: \n1: 1024 \t2: 10000 \n3: 25000 \t4: 75000 \n5: 100000 \t6: 200000\n\n")
 choice = int(input())
+print("\nLoading Data\n")
 if (choice==1 or choice==1024):
 	df1 = pd.read_csv('feasible_data_1024.txt', header = None, names = ['Cust_Id', 'Rating', 'Date'], usecols = [0,1,2])
 elif (choice==2 or choice==10000):
@@ -25,8 +26,11 @@ elif (choice==3 or choice==25000):
 	df1 = pd.read_csv('feasible_data_25000.txt', header = None, names = ['Cust_Id', 'Rating', 'Date'], usecols = [0,1,2])
 elif (choice==4 or choice==75000):
 	df1 = pd.read_csv('feasible_data_75000.txt', header = None, names = ['Cust_Id', 'Rating', 'Date'], usecols = [0,1,2])
+elif (choice==5 or choice==100000):
+	df1 = pd.read_csv('feasible_data_100000.txt', header = None, names = ['Cust_Id', 'Rating', 'Date'], usecols = [0,1,2])
+elif (choice==6 or choice==200000):
+	df1 = pd.read_csv('feasible_data_200000.txt', header = None, names = ['Cust_Id', 'Rating', 'Date'], usecols = [0,1,2])
 
-print("\nLoading Data\n")
 
 df1['Rating'] = df1['Rating'].astype(float)
 df1['Date'] = df1['Date'].astype(str)
@@ -42,7 +46,7 @@ df = df1
 
 
 #Seeing the distribution of ratings given by the users
-print("See Overview of the Data")
+#print("See Overview of the Data")
 p = df.groupby('Rating')['Rating'].agg(['count'])
 # get movie count
 movie_count = df.isnull().sum()[1]
@@ -143,7 +147,8 @@ print(acq_data.head())
 
 
 
-
+R = np.array(acq_data)
+R1= np.array(acq_data)
 
 
 print("\nRandomly Distributing Test and Train Set by removing 20% values...\n")
@@ -153,8 +158,15 @@ R1= np.array(acq_data)
 #Set the number of values to replace. For example 20%:
 prop = int(R.size * 0.2)
 #Randomly choose indices of the numpy array:
-i = [np.random.choice(range(R.shape[0])) for _ in range(prop)]
-j = [np.random.choice(range(R.shape[1])) for _ in range(prop)]
+#print("Creating Random Indices\n")
+# i = [np.random.choice(range(R.shape[0])) for _ in range(prop)]
+# j = [np.random.choice(range(R.shape[1])) for _ in range(prop)]
+i = np.random.randint(0,R.shape[0],size=prop)
+j = np.random.randint(0,R.shape[1],size=prop)
+#print("Created Random Indices\n")
+print("Done\n")
+#print("i=",i)
+#print("j=",j)
 #Change values with 0
 R[i,j] = 0
 print("Original:\n",R1)
