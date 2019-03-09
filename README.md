@@ -17,3 +17,4 @@ Link to Netflix Dataset Used : [[1]](https://www.kaggle.com/netflix-inc/netflix-
 
 4) The _*.ipynb_ files include visualizations of RMSE decreasing with iterations when fitting on the training dataset. All _*.ipynb_ files are standalone and do not require importing _mf.py_
 
+5) Train and Test Data need not be given separately. Program randomly separates k% of data as Test data, trains on remaining, then tests on the k% values. Default k=20, can be changed on line 154.
